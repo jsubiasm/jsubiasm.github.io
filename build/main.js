@@ -48,7 +48,7 @@ module.exports = webpackAsyncContext;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__detail_detail__ = __webpack_require__(99);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -62,47 +62,59 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var HomePage = /** @class */ (function () {
     function HomePage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+    }
+    /*
+    ionViewDidLoad() { console.log('service ionViewDidLoad'); }
+    ionViewWillEnter() { console.log('service ionViewWillEnter'); }
+    ionViewDidEnter() { console.log('service ionViewDidEnter'); }
+    ionViewWillLeave() { console.log('service ionViewWillLeave'); }
+    ionViewDidLeave() { console.log('service ionViewDidLeave'); }
+    ionViewWillUnload() { console.log('service ionViewWillUnload'); }
+    ionViewCanEnter() { console.log('service ionViewCanEnter'); }
+    ionViewCanLeave() { console.log('service ionViewCanLeave'); }
+    */
+    HomePage.prototype.ionViewWillEnter = function () {
+        console.log('service getNotas');
         this.items = [];
+        this.items.push({
+            notaId: 0,
+            notaOrden: 0,
+            notaTexto: 'Esta es la nota uno'
+        });
         this.items.push({
             notaId: 1,
             notaOrden: 1,
-            notaTexto: 'Esta es la nota uno'
+            notaTexto: 'Esta es la segunda nota'
         });
         this.items.push({
             notaId: 2,
             notaOrden: 2,
-            notaTexto: 'Esta es la segunda nota'
-        });
-        this.items.push({
-            notaId: 3,
-            notaOrden: 3,
             notaTexto: 'Y esta es la tercera'
         });
-    }
+    };
     HomePage.prototype.reorderItems = function (indexes) {
-        this.items = Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* reorderArray */])(this.items, indexes);
+        var element = this.items[indexes.from];
+        this.items.splice(indexes.from, 1);
+        this.items.splice(indexes.to, 0, element);
+        console.log(this.items);
+        this.items.forEach(function (element, idx) {
+            console.log('service updateNotaNumeroOrden [' + element.notaId + '] [' + idx + ']');
+        });
     };
     HomePage.prototype.delete = function (event, item) {
-        console.log("delete ->");
-        console.log(event);
-        console.log(item);
+        console.log('service deleteNota [' + item.notaId + ']');
+        console.log('service getNotas');
     };
     HomePage.prototype.edit = function (event, item) {
-        console.log("edit ->");
-        console.log(event);
-        console.log(item);
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__detail_detail__["a" /* DetailPage */], {
             item: item
         });
     };
     HomePage.prototype.insert = function (event) {
-        console.log("add ->");
-        console.log(event);
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__detail_detail__["a" /* DetailPage */], {
             item: { notaId: '', notaOrden: '', notaTexto: '' }
         });
@@ -111,9 +123,10 @@ var HomePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Notas\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">\n    <ion-item-sliding *ngFor="let item of items">\n      <ion-item (click)="edit($event, item)">\n        <p>notaId: {{item.notaId}}</p>\n        <p>notaOrden: {{item.notaOrden}}</p>\n        <p>notaTexto: {{item.notaTexto}}</p>\n      </ion-item>\n      <ion-item-options side="right">\n        <button style="text-transform: none;" ion-button color="light" (click)="edit($event, item)">\n          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n          <ion-icon name="create"></ion-icon>\n        </button>\n        <button style="text-transform: none;" ion-button color="light" (click)="delete($event, item)">\n          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n          <ion-icon name="trash"></ion-icon>\n        </button>\n      </ion-item-options>\n    </ion-item-sliding>\n    <ion-fab right bottom>\n      <button ion-fab color="light" (click)="insert($event)">\n        <ion-icon name="add"></ion-icon>\n      </button>\n    </ion-fab>\n  </ion-list>\n\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object])
     ], HomePage);
     return HomePage;
+    var _a, _b;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -126,7 +139,7 @@ var HomePage = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AboutPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -149,9 +162,6 @@ var AboutPage = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
     }
-    AboutPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad AboutPage');
-    };
     AboutPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-about',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Acerca de...\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <p>Especificaciones:</p>\n  <p>Rutrum luctus neque urna curabitur platea vehicula tempus ultricies suscipit cubilia litora scelerisque\n    malesuada, dictumst odio quam habitant praesent conubia purus potenti eleifend diam magnis posuere.</p>\n  <ul>\n    <li>Semper montes vel lacus inceptos sed proin mattis, mus platea sem torquent habitasse ad congue\n      pellentesque, ante suspendisse cubilia ultrices penatibus iaculis.</li>\n    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>\n    <li>Taciti eget faucibus id lacus, sociis ad.</li>\n  </ul>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\about\about.html"*/,
@@ -184,9 +194,9 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(190);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(269);
@@ -254,7 +264,7 @@ var AppModule = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(190);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(194);
@@ -328,7 +338,7 @@ var MyApp = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetailPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -353,12 +363,19 @@ var DetailPage = /** @class */ (function () {
         // If we navigated to this page, we will have an item available as a nav param
         this.selectedItem = navParams.get('item');
     }
-    DetailPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad DetailPage');
+    DetailPage.prototype.save = function (event, item) {
+        if (item.notaId) {
+            console.log('service updateNotaTexto [' + item.notaId + '] [' + item.notaTexto + ']');
+        }
+        else {
+            console.log('service getUltimaNota');
+            console.log('service insertNota [ultima nota + 1] [' + item.notaTexto + ']');
+        }
+        this.navCtrl.pop();
     };
     DetailPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-detail',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\detail\detail.html"*/'<ion-header>\n  <ion-navbar>\n    <button menuToggle *ngIf="!selectedItem">\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Nota</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <p>notaId: {{selectedItem.notaId}}</p>\n  <p>notaOrden: {{selectedItem.notaOrden}}</p>\n  <p>notaTexto:</p>\n  <ion-textarea rows="10" placeholder="Introducir texto..." [value]="selectedItem.notaTexto"></ion-textarea>\n  <button style="text-transform: none;" ion-button block color="light">\n    <ion-icon name="checkmark"></ion-icon>\n  </button>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\detail\detail.html"*/,
+            selector: 'page-detail',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\detail\detail.html"*/'<ion-header>\n  <ion-navbar>\n    <button menuToggle *ngIf="!selectedItem">\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Nota</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <p>notaId: {{selectedItem.notaId}}</p>\n  <p>notaOrden: {{selectedItem.notaOrden}}</p>\n  <p>notaTexto:</p>\n  <ion-textarea rows="10" placeholder="Introducir texto..." [(ngModel)]="selectedItem.notaTexto"></ion-textarea>\n  <button style="text-transform: none;" ion-button block color="light" (click)="save($event, selectedItem)">\n    <ion-icon name="checkmark"></ion-icon>\n  </button>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\detail\detail.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
     ], DetailPage);
