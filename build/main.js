@@ -37,8 +37,16 @@ var DetailPage = /** @class */ (function () {
         var _this = this;
         if (parseInt(notaPantalla.notaId) >= 0) {
             console.log('service updateNotaTexto [' + notaPantalla.notaId + '] [' + notaPantalla.notaTexto + ']');
+            this.todoServiceProvider.updateNotaTexto(notaPantalla.notaId, notaPantalla.notaTexto)
+                .subscribe(function (serviceReturn) {
+                _this.navCtrl.pop();
+            }, function (error) {
+                console.error('service updateNotaTexto error ->');
+                console.error(error);
+            });
         }
         else {
+            console.log('service getUltimaNota');
             this.todoServiceProvider.getUltimaNota()
                 .subscribe(function (notasArray) {
                 var notaNumeroOrden = 0;
@@ -46,6 +54,7 @@ var DetailPage = /** @class */ (function () {
                     notaNumeroOrden = parseInt(notasArray[0].numeroOrden.$numberLong);
                     notaNumeroOrden++;
                 }
+                console.log('service insertNota [' + notaNumeroOrden + '] [' + notaPantalla.notaTexto + ']');
                 _this.todoServiceProvider.insertNota(notaNumeroOrden, notaPantalla.notaTexto)
                     .subscribe(function (serviceReturn) {
                     _this.navCtrl.pop();
@@ -61,7 +70,7 @@ var DetailPage = /** @class */ (function () {
     };
     DetailPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-detail',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\detail\detail.html"*/'<ion-header>\n  <ion-navbar>\n    <button menuToggle *ngIf="!selectedNota">\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Nota</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <p>notaId: {{selectedNota.notaId}}</p>\n  <p>notaOrden: {{selectedNota.notaOrden}}</p>\n  <p>notaTexto:</p>\n  <ion-textarea rows="10" placeholder="Introducir texto..." [(ngModel)]="selectedNota.notaTexto"></ion-textarea>\n  <button style="text-transform: none;" ion-button block color="light" (click)="save($event, selectedNota)">\n    <ion-icon name="checkmark"></ion-icon>\n  </button>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\detail\detail.html"*/,
+            selector: 'page-detail',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\detail\detail.html"*/'<ion-header>\n  <ion-navbar>\n    <button menuToggle *ngIf="!selectedNota">\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Nota</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <!--p>notaId: {{selectedNota.notaId}}</p>\n  <p>notaOrden: {{selectedNota.notaOrden}}</p-->\n  <p>Nota:</p>\n  <ion-textarea rows="10" placeholder="Introducir texto..." [(ngModel)]="selectedNota.notaTexto"></ion-textarea>\n  <button style="text-transform: none;" ion-button block color="light" (click)="save($event, selectedNota)">\n    <ion-icon name="checkmark"></ion-icon>\n  </button>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\detail\detail.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
@@ -156,9 +165,10 @@ var HomePage = /** @class */ (function () {
     ionViewCanEnter() { console.log('service ionViewCanEnter'); }
     ionViewCanLeave() { console.log('service ionViewCanLeave'); }
     */
-    HomePage.prototype.ionViewWillEnter = function () {
+    HomePage.prototype.getNotas = function () {
         var _this = this;
         this.arrayNotas = [];
+        console.log('service getNotas');
         this.todoServiceProvider.getNotas()
             .subscribe(function (notasArray) {
             var i;
@@ -171,17 +181,36 @@ var HomePage = /** @class */ (function () {
             console.error(error);
         });
     };
+    HomePage.prototype.ionViewWillEnter = function () {
+        this.getNotas();
+    };
     HomePage.prototype.reorderNotas = function (indexes) {
         var notaElement = this.arrayNotas[indexes.from];
         this.arrayNotas.splice(indexes.from, 1);
         this.arrayNotas.splice(indexes.to, 0, notaElement);
-        this.arrayNotas.forEach(function (notaItem, idx) {
-            console.log('service updateNotaNumeroOrden [' + notaItem.notaId + '] [' + idx + ']');
-        });
+        var i;
+        for (i = 0; i < this.arrayNotas.length; i++) {
+            var notaItem = this.arrayNotas[i];
+            console.log('service updateNotaNumeroOrden [' + notaItem.notaId + '] [' + i + ']');
+            this.todoServiceProvider.updateNotaNumeroOrden(notaItem.notaId, i)
+                .subscribe(function (serviceReturn) {
+                // this.getNotas();
+            }, function (error) {
+                console.error('service updateNotaNumeroOrden error ->');
+                console.error(error);
+            });
+        }
     };
     HomePage.prototype.delete = function (event, nota) {
+        var _this = this;
         console.log('service deleteNota [' + nota.notaId + ']');
-        console.log('service getNotas');
+        this.todoServiceProvider.deleteNota(nota.notaId)
+            .subscribe(function (serviceReturn) {
+            _this.getNotas();
+        }, function (error) {
+            console.error('service deleteNota error ->');
+            console.error(error);
+        });
     };
     HomePage.prototype.edit = function (event, nota) {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__detail_detail__["a" /* DetailPage */], {
@@ -195,7 +224,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Notas\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list reorder="true" (ionItemReorder)="reorderNotas($event)">\n    <ion-item-sliding *ngFor="let notaItem of arrayNotas">\n      <ion-item (click)="edit($event, notaItem)">\n        <p>notaId: {{notaItem.notaId}}</p>\n        <p>notaOrden: {{notaItem.notaOrden}}</p>\n        <p>notaTexto: {{notaItem.notaTexto}}</p>\n      </ion-item>\n      <ion-item-options side="right">\n        <button style="text-transform: none;" ion-button color="light" (click)="edit($event, notaItem)">\n          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n          <ion-icon name="create"></ion-icon>\n        </button>\n        <button style="text-transform: none;" ion-button color="light" (click)="delete($event, notaItem)">\n          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n          <ion-icon name="trash"></ion-icon>\n        </button>\n      </ion-item-options>\n    </ion-item-sliding>\n    <ion-fab right bottom>\n      <button ion-fab color="light" (click)="insert($event)">\n        <ion-icon name="add"></ion-icon>\n      </button>\n    </ion-fab>\n  </ion-list>\n\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Notas\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list reorder="true" (ionItemReorder)="reorderNotas($event)">\n    <ion-item-sliding *ngFor="let notaItem of arrayNotas">\n      <ion-item (click)="edit($event, notaItem)">\n        <!--p>notaId: {{notaItem.notaId}}</p>\n        <p>notaOrden: {{notaItem.notaOrden}}</p-->\n        <div text-wrap>{{notaItem.notaTexto}}</div>\n      </ion-item>\n      <ion-item-options side="right">\n        <button style="text-transform: none;" ion-button color="light" (click)="edit($event, notaItem)">\n          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n          <ion-icon name="create"></ion-icon>\n        </button>\n        <button style="text-transform: none;" ion-button color="light" (click)="delete($event, notaItem)">\n          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n          <ion-icon name="trash"></ion-icon>\n        </button>\n      </ion-item-options>\n    </ion-item-sliding>\n    <ion-fab right bottom>\n      <button ion-fab color="light" (click)="insert($event)">\n        <ion-icon name="add"></ion-icon>\n      </button>\n    </ion-fab>\n  </ion-list>\n\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\home\home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
@@ -239,7 +268,7 @@ var AboutPage = /** @class */ (function () {
     }
     AboutPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-about',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Acerca de...\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <p>Especificaciones:</p>\n  <p>Rutrum luctus neque urna curabitur platea vehicula tempus ultricies suscipit cubilia litora scelerisque\n    malesuada, dictumst odio quam habitant praesent conubia purus potenti eleifend diam magnis posuere.</p>\n  <ul>\n    <li>Semper montes vel lacus inceptos sed proin mattis, mus platea sem torquent habitasse ad congue\n      pellentesque, ante suspendisse cubilia ultrices penatibus iaculis.</li>\n    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>\n    <li>Taciti eget faucibus id lacus, sociis ad.</li>\n  </ul>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\about\about.html"*/,
+            selector: 'page-about',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Acerca de //TODO:\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding text-wrap>\n  <p>Especificaciones</p>\n  <ul>\n    <li>\n      Ionic\n      <ul>\n        <li>ionic (Ionic CLI) : 4.1.2</li>\n        <li>Ionic Framework : ionic-angular 3.9.2</li>\n        <li>@ionic/app-scripts : 3.2.0</li>\n      </ul>\n    </li>\n    <li>\n      Cordova\n      <ul>\n        <li>cordova (Cordova CLI) : 8.0.0</li>\n      </ul>\n    </li>\n    <li>\n      System\n      <ul>\n        <li>NodeJS : v8.11.3</li>\n        <li>npm : 5.6.0</li>\n      </ul>\n    </li>\n    <li>\n      MongoDB Atlas/Stitch\n      <ul>\n        <li>Version: 3.6.7</li>\n        <li>Region: N. Virginia (us-east-1)</li>\n        <li>Instance Size: M0</li>\n      </ul>\n    </li>\n  </ul>\n  <p>Aplicación desarrollada por Javier Subías Mínguez</p>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\Ionic\TODOApp\src\pages\about\about.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
     ], AboutPage);
@@ -466,9 +495,24 @@ var TodoServiceProvider = /** @class */ (function () {
         return this.http.get('https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoapp-rufkc/service/TODOService/incoming_webhook/getUltimaNota');
     };
     TodoServiceProvider.prototype.insertNota = function (notaNumeroOrden, notaTexto) {
-        var insertNotaUrl = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoapp-rufkc/service/TODOService/incoming_webhook/insertNota';
-        insertNotaUrl = insertNotaUrl + '?notaNumeroOrden=' + notaNumeroOrden + '&notaTexto=' + notaTexto;
-        return this.http.get(insertNotaUrl);
+        var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoapp-rufkc/service/TODOService/incoming_webhook/insertNota';
+        url = url + '?notaNumeroOrden=' + notaNumeroOrden + '&notaTexto=' + notaTexto;
+        return this.http.get(url);
+    };
+    TodoServiceProvider.prototype.updateNotaNumeroOrden = function (notaId, notaNumeroOrden) {
+        var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoapp-rufkc/service/TODOService/incoming_webhook/updateNotaNumeroOrden';
+        url = url + '?notaId=' + notaId + '&notaNumeroOrden=' + notaNumeroOrden;
+        return this.http.get(url);
+    };
+    TodoServiceProvider.prototype.updateNotaTexto = function (notaId, notaTexto) {
+        var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoapp-rufkc/service/TODOService/incoming_webhook/updateNotaTexto';
+        url = url + '?notaId=' + notaId + '&notaTexto=' + notaTexto;
+        return this.http.get(url);
+    };
+    TodoServiceProvider.prototype.deleteNota = function (notaId) {
+        var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoapp-rufkc/service/TODOService/incoming_webhook/deleteNota';
+        url = url + '?notaId=' + notaId;
+        return this.http.get(url);
     };
     TodoServiceProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
