@@ -8,7 +8,7 @@ webpackJsonp([1],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__detail_detail__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_todo_service_todo_service__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_todo_service_todo_service__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_nota__ = __webpack_require__(278);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -31,9 +31,9 @@ var HomePage = /** @class */ (function () {
         this.todoServiceProvider = todoServiceProvider;
     }
     HomePage.prototype.ionViewCanEnter = function () {
-        var usuarioAutorizado = window.localStorage.getItem('usuarioAutorizado');
-        console.log('Usuario autorizado [' + usuarioAutorizado + ']');
-        return (usuarioAutorizado != null && usuarioAutorizado != "undefined");
+        this.usuarioAutorizado = window.localStorage.getItem('usuarioAutorizado');
+        console.log('Usuario autorizado [' + this.usuarioAutorizado + ']');
+        return (this.usuarioAutorizado != null && this.usuarioAutorizado != "undefined");
     };
     HomePage.prototype.ionViewWillEnter = function () {
         this.getNotas();
@@ -51,8 +51,8 @@ var HomePage = /** @class */ (function () {
     HomePage.prototype.getNotas = function () {
         var _this = this;
         this.arrayNotas = [];
-        console.log('service getNotas');
-        this.todoServiceProvider.getNotas()
+        console.log('service getNotas [' + this.usuarioAutorizado + ']');
+        this.todoServiceProvider.getNotas(this.usuarioAutorizado)
             .subscribe(function (notasArray) {
             var i;
             for (i = 0; i < notasArray.length; i++) {
@@ -71,8 +71,8 @@ var HomePage = /** @class */ (function () {
         var i;
         for (i = 0; i < this.arrayNotas.length; i++) {
             var notaItem = this.arrayNotas[i];
-            console.log('service updateNotaNumeroOrden [' + notaItem.notaId + '] [' + i + ']');
-            this.todoServiceProvider.updateNotaNumeroOrden(notaItem.notaId, i)
+            console.log('service updateNotaNumeroOrden [' + notaItem.notaId + '] [' + i + '] [' + this.usuarioAutorizado + ']');
+            this.todoServiceProvider.updateNotaNumeroOrden(notaItem.notaId, i, this.usuarioAutorizado)
                 .subscribe(function (serviceReturn) {
                 // this.getNotas();
             }, function (error) {
@@ -83,8 +83,8 @@ var HomePage = /** @class */ (function () {
     };
     HomePage.prototype.delete = function (event, nota) {
         var _this = this;
-        console.log('service deleteNota [' + nota.notaId + ']');
-        this.todoServiceProvider.deleteNota(nota.notaId)
+        console.log('service deleteNota [' + nota.notaId + '] [' + this.usuarioAutorizado + ']');
+        this.todoServiceProvider.deleteNota(nota.notaId, this.usuarioAutorizado)
             .subscribe(function (serviceReturn) {
             _this.getNotas();
         }, function (error) {
@@ -106,10 +106,11 @@ var HomePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Notas\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list reorder="true" (ionItemReorder)="reorderNotas($event)">\n    <ion-item-sliding *ngFor="let notaItem of arrayNotas">\n      <ion-item (click)="edit($event, notaItem)">\n        <!--p>notaId: {{notaItem.notaId}}</p>\n        <p>notaOrden: {{notaItem.notaOrden}}</p-->\n        <div text-wrap>{{notaItem.notaTexto}}</div>\n      </ion-item>\n      <ion-item-options side="right">\n        <button style="text-transform: none;" ion-button color="light" (click)="edit($event, notaItem)">\n          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n          <ion-icon name="create"></ion-icon>\n        </button>\n        <button style="text-transform: none;" ion-button color="light" (click)="delete($event, notaItem)">\n          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n          <ion-icon name="trash"></ion-icon>\n        </button>\n      </ion-item-options>\n    </ion-item-sliding>\n    <ion-fab right bottom>\n      <button ion-fab color="light" (click)="insert($event)">\n        <ion-icon name="add"></ion-icon>\n      </button>\n    </ion-fab>\n  </ion-list>\n\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__providers_todo_service_todo_service__["a" /* TodoServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_todo_service_todo_service__["a" /* TodoServiceProvider */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_todo_service_todo_service__["a" /* TodoServiceProvider */]])
     ], HomePage);
     return HomePage;
-    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -123,7 +124,7 @@ var HomePage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetailPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_todo_service_todo_service__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_todo_service_todo_service__ = __webpack_require__(46);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -143,60 +144,79 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var DetailPage = /** @class */ (function () {
-    function DetailPage(navCtrl, navParams, todoServiceProvider) {
+    function DetailPage(navCtrl, navParams, todoServiceProvider, toastCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.todoServiceProvider = todoServiceProvider;
+        this.toastCtrl = toastCtrl;
         this.selectedNota = navParams.get('nota');
     }
+    DetailPage.prototype.mostrarMensaje = function (mensaje) {
+        var toast = this.toastCtrl.create({
+            message: mensaje,
+            duration: 2000,
+            position: 'top',
+            showCloseButton: false,
+            dismissOnPageChange: true
+        });
+        toast.present();
+    };
     DetailPage.prototype.ionViewCanEnter = function () {
-        var usuarioAutorizado = window.localStorage.getItem('usuarioAutorizado');
-        console.log('Usuario autorizado [' + usuarioAutorizado + ']');
-        return (usuarioAutorizado != null && usuarioAutorizado != "undefined");
+        this.usuarioAutorizado = window.localStorage.getItem('usuarioAutorizado');
+        console.log('Usuario autorizado [' + this.usuarioAutorizado + ']');
+        return (this.usuarioAutorizado != null && this.usuarioAutorizado != "undefined");
     };
     DetailPage.prototype.save = function (event, notaPantalla) {
         var _this = this;
-        if (parseInt(notaPantalla.notaId) >= 0) {
-            console.log('service updateNotaTexto [' + notaPantalla.notaId + '] [' + notaPantalla.notaTexto + ']');
-            this.todoServiceProvider.updateNotaTexto(notaPantalla.notaId, notaPantalla.notaTexto)
-                .subscribe(function (serviceReturn) {
-                _this.navCtrl.pop();
-            }, function (error) {
-                console.error('service updateNotaTexto error ->');
-                console.error(error);
-            });
-        }
-        else {
-            console.log('service getUltimaNota');
-            this.todoServiceProvider.getUltimaNota()
-                .subscribe(function (notasArray) {
-                var notaNumeroOrden = 0;
-                if (notasArray[0]) {
-                    notaNumeroOrden = parseInt(notasArray[0].numeroOrden.$numberLong);
-                    notaNumeroOrden++;
-                }
-                console.log('service insertNota [' + notaNumeroOrden + '] [' + notaPantalla.notaTexto + ']');
-                _this.todoServiceProvider.insertNota(notaNumeroOrden, notaPantalla.notaTexto)
+        if (notaPantalla.notaTexto && notaPantalla.notaTexto.trim().length > 0) {
+            if (parseInt(notaPantalla.notaId) >= 0) {
+                console.log('service updateNotaTexto [' + notaPantalla.notaId + '] [' + notaPantalla.notaTexto + '] [' + this.usuarioAutorizado + ']');
+                this.todoServiceProvider.updateNotaTexto(notaPantalla.notaId, notaPantalla.notaTexto, this.usuarioAutorizado)
                     .subscribe(function (serviceReturn) {
                     _this.navCtrl.pop();
                 }, function (error) {
-                    console.error('service insertNota error ->');
+                    console.error('service updateNotaTexto error ->');
                     console.error(error);
                 });
-            }, function (error) {
-                console.error('service getUltimaNota error ->');
-                console.error(error);
-            });
+            }
+            else {
+                console.log('service getUltimaNota [' + this.usuarioAutorizado + ']');
+                this.todoServiceProvider.getUltimaNota(this.usuarioAutorizado)
+                    .subscribe(function (notasArray) {
+                    var notaNumeroOrden = 0;
+                    if (notasArray[0]) {
+                        notaNumeroOrden = parseInt(notasArray[0].numeroOrden.$numberLong);
+                        notaNumeroOrden++;
+                    }
+                    console.log('service insertNota [' + notaNumeroOrden + '] [' + notaPantalla.notaTexto + '] [' + _this.usuarioAutorizado + ']');
+                    _this.todoServiceProvider.insertNota(notaNumeroOrden, notaPantalla.notaTexto, _this.usuarioAutorizado)
+                        .subscribe(function (serviceReturn) {
+                        _this.navCtrl.pop();
+                    }, function (error) {
+                        console.error('service insertNota error ->');
+                        console.error(error);
+                    });
+                }, function (error) {
+                    console.error('service getUltimaNota error ->');
+                    console.error(error);
+                });
+            }
+        }
+        else {
+            var mensaje = 'Debe introducir un texto para la nota';
+            this.mostrarMensaje(mensaje);
         }
     };
     DetailPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-detail',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\detail\detail.html"*/'<ion-header>\n  <ion-navbar>\n    <button menuToggle *ngIf="!selectedNota">\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Nota</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <!--p>notaId: {{selectedNota.notaId}}</p>\n  <p>notaOrden: {{selectedNota.notaOrden}}</p-->\n  <p>Nota:</p>\n  <ion-textarea rows="10" placeholder="Introducir texto..." [(ngModel)]="selectedNota.notaTexto"></ion-textarea>\n  <button style="text-transform: none;" ion-button block color="light" (click)="save($event, selectedNota)">\n    Guardar\n  </button>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\detail\detail.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_todo_service_todo_service__["a" /* TodoServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_todo_service_todo_service__["a" /* TodoServiceProvider */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_todo_service_todo_service__["a" /* TodoServiceProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */]])
     ], DetailPage);
     return DetailPage;
-    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=detail.js.map
@@ -275,18 +295,19 @@ var AboutPage = /** @class */ (function () {
         this.navParams = navParams;
     }
     AboutPage.prototype.ionViewCanEnter = function () {
-        var usuarioAutorizado = window.localStorage.getItem('usuarioAutorizado');
-        console.log('Usuario autorizado [' + usuarioAutorizado + ']');
-        return (usuarioAutorizado != null && usuarioAutorizado != "undefined");
+        this.usuarioAutorizado = window.localStorage.getItem('usuarioAutorizado');
+        console.log('Usuario autorizado [' + this.usuarioAutorizado + ']');
+        this.usuarioAutorizadoEmail = window.localStorage.getItem('usuarioAutorizadoEmail');
+        console.log('Usuario autorizado email [' + this.usuarioAutorizadoEmail + ']');
+        return (this.usuarioAutorizado != null && this.usuarioAutorizado != "undefined");
     };
     AboutPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-about',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Acerca de //TODO:\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding text-wrap>\n  <p>Especificaciones</p>\n  <ul>\n    <li>\n      Ionic\n      <ul>\n        <li>ionic (Ionic CLI) : 4.1.2</li>\n        <li>Ionic Framework : ionic-angular 3.9.2</li>\n        <li>@ionic/app-scripts : 3.2.0</li>\n      </ul>\n    </li>\n    <li>\n      Cordova\n      <ul>\n        <li>cordova (Cordova CLI) : 8.0.0</li>\n      </ul>\n    </li>\n    <li>\n      System\n      <ul>\n        <li>NodeJS : v8.11.3</li>\n        <li>npm : 5.6.0</li>\n      </ul>\n    </li>\n    <li>\n      MongoDB Atlas/Stitch\n      <ul>\n        <li>Version: 3.6.7</li>\n        <li>Region: N. Virginia (us-east-1)</li>\n        <li>Instance Size: M0</li>\n      </ul>\n    </li>\n  </ul>\n  <p>Aplicación desarrollada por Javier Subías Mínguez</p>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\about\about.html"*/,
+            selector: 'page-about',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Acerca de //TODO:\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding text-wrap>\n  <p>Usuario conectado</p>\n  <ul>\n    <li>{{usuarioAutorizadoEmail}}</li>\n  </ul>\n  <p>Especificaciones</p>\n  <ul>\n    <li>\n      Ionic\n      <ul>\n        <li>ionic (Ionic CLI) : 4.1.2</li>\n        <li>Ionic Framework : ionic-angular 3.9.2</li>\n        <li>@ionic/app-scripts : 3.2.0</li>\n      </ul>\n    </li>\n    <li>\n      Cordova\n      <ul>\n        <li>cordova (Cordova CLI) : 8.0.0</li>\n      </ul>\n    </li>\n    <li>\n      System\n      <ul>\n        <li>NodeJS : v8.11.3</li>\n        <li>npm : 5.6.0</li>\n      </ul>\n    </li>\n    <li>\n      MongoDB Atlas/Stitch\n      <ul>\n        <li>Version: 3.6.7</li>\n        <li>Region: N. Virginia (us-east-1)</li>\n        <li>Instance Size: M0</li>\n      </ul>\n    </li>\n  </ul>\n  <p>Aplicación desarrollada por Javier Subías Mínguez</p>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\about\about.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
     ], AboutPage);
     return AboutPage;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=about.js.map
@@ -301,6 +322,7 @@ var AboutPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_todo_service_todo_service__ = __webpack_require__(46);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -313,34 +335,77 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 var LoginPage = /** @class */ (function () {
-    function LoginPage(navCtrl, navParams) {
+    function LoginPage(navCtrl, navParams, todoServiceProvider, toastCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.todoServiceProvider = todoServiceProvider;
+        this.toastCtrl = toastCtrl;
     }
+    LoginPage.prototype.mostrarMensaje = function (mensaje) {
+        var toast = this.toastCtrl.create({
+            message: mensaje,
+            duration: 2000,
+            position: 'top',
+            showCloseButton: false,
+            dismissOnPageChange: true
+        });
+        toast.present();
+    };
     LoginPage.prototype.ionViewWillEnter = function () {
         console.log('Eliminado usuario autorizado');
+        window.localStorage.removeItem('usuarioAutorizadoEmail');
         window.localStorage.removeItem('usuarioAutorizado');
     };
     LoginPage.prototype.login = function (event) {
-        console.log('Usuario autorizado [' + this.email + '] [' + this.password + ']');
-        window.localStorage.setItem('usuarioAutorizado', this.email);
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__home_home__["a" /* HomePage */]);
+        var _this = this;
+        if (this.email && this.password) {
+            console.log('service getUsuario [' + this.email + '] [' + this.password + ']');
+            this.todoServiceProvider.getUsuario(this.email, this.password)
+                .subscribe(function (usuariosArray) {
+                var mensaje;
+                if (!usuariosArray || usuariosArray.length < 1) {
+                    mensaje = 'No se ha encontrado ningún usuario con las credenciales proporcionadas';
+                    console.warn('service getUsuario warn -> ' + mensaje);
+                    _this.mostrarMensaje(mensaje);
+                }
+                else if (usuariosArray.length > 1) {
+                    mensaje = 'Se ha encontrado más de un usuario con las credenciales proporcionadas';
+                    console.warn('service getUsuario warn -> ' + mensaje);
+                    _this.mostrarMensaje(mensaje);
+                }
+                else if (usuariosArray.length === 1) {
+                    console.log('Guardado usuario autorizado [' + usuariosArray[0].email + '] [' + usuariosArray[0]._id.$oid + ']');
+                    window.localStorage.setItem('usuarioAutorizadoEmail', usuariosArray[0].email);
+                    window.localStorage.setItem('usuarioAutorizado', usuariosArray[0]._id.$oid);
+                    _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__home_home__["a" /* HomePage */]);
+                }
+                else {
+                    mensaje = 'Error inesperado';
+                    console.error('service getUsuario error -> ' + mensaje);
+                    _this.mostrarMensaje(mensaje);
+                }
+            }, function (error) {
+                console.error('service getUsuario error ->');
+                console.error(error);
+            });
+        }
+        else {
+            var mensaje = 'Debe introducir un usuario y una contraseña';
+            this.mostrarMensaje(mensaje);
+        }
     };
     LoginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-login',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\login\login.html"*/'<ion-content padding>\n  <ion-list inset>\n    <ion-item>\n      <ion-input type="text" placeholder="Email" [(ngModel)]="email"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>\n    </ion-item>\n  </ion-list>\n  <button style="text-transform: none;" ion-button block color="light" (click)="login($event)">\n    Entrar\n  </button>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\login\login.html"*/,
+            selector: 'page-login',template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\login\login.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Datos de usuario</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list inset>\n    <ion-item>\n      <ion-input type="text" placeholder="Email" [(ngModel)]="email"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>\n    </ion-item>\n  </ion-list>\n  <button style="text-transform: none;" ion-button block color="light" (click)="login($event)">\n    Entrar\n  </button>\n</ion-content>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\pages\login\login.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_todo_service_todo_service__["a" /* TodoServiceProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */]])
     ], LoginPage);
     return LoginPage;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=login.js.map
@@ -377,7 +442,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_about_about__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_detail_detail__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_login_login__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_todo_service_todo_service__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_todo_service_todo_service__ = __webpack_require__(46);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -507,15 +572,17 @@ var MyApp = /** @class */ (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */]),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */]) === "function" && _a || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\app\app.html"*/'<ion-menu [content]="content">\n\n    <ion-header>\n      <ion-toolbar>\n        <ion-title>//TODO:</ion-title>\n      </ion-toolbar>\n    </ion-header>\n  \n    <ion-content>\n      <ion-list>\n        <button ion-item *ngFor="let p of pages" (click)="openPage(p)">\n          {{p.title}}\n        </button>\n      </ion-list>\n    </ion-content>\n  \n  </ion-menu>\n  \n  <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n  '/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\app\app.html"*/'<ion-menu [content]="content">\n\n  <ion-header>\n    <ion-toolbar>\n      <ion-title>//TODO:</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content>\n    <ion-list>\n      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"C:\_PELAYO\Software\Eclipse Neon\workspace\TODOApp\Ionic\TODOAppV2\src\app\app.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* MenuController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _e || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* MenuController */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
     return MyApp;
-    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=app.component.js.map
@@ -540,7 +607,7 @@ var Nota = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 77:
+/***/ 46:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -568,30 +635,39 @@ var TodoServiceProvider = /** @class */ (function () {
     function TodoServiceProvider(http) {
         this.http = http;
     }
-    TodoServiceProvider.prototype.getNotas = function () {
-        return this.http.get('https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/getNotas');
+    TodoServiceProvider.prototype.getNotas = function (usuarioId) {
+        var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/getNotas';
+        url = url + '?usuarioId=' + usuarioId.trim();
+        return this.http.get(url);
     };
-    TodoServiceProvider.prototype.getUltimaNota = function () {
-        return this.http.get('https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/getUltimaNota');
+    TodoServiceProvider.prototype.getUltimaNota = function (usuarioId) {
+        var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/getUltimaNota';
+        url = url + '?usuarioId=' + usuarioId.trim();
+        return this.http.get(url);
     };
-    TodoServiceProvider.prototype.insertNota = function (notaNumeroOrden, notaTexto) {
+    TodoServiceProvider.prototype.insertNota = function (notaNumeroOrden, notaTexto, usuarioId) {
         var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/insertNota';
-        url = url + '?notaNumeroOrden=' + notaNumeroOrden + '&notaTexto=' + notaTexto;
+        url = url + '?notaNumeroOrden=' + notaNumeroOrden + '&notaTexto=' + notaTexto.trim() + '&usuarioId=' + usuarioId.trim();
         return this.http.get(url);
     };
-    TodoServiceProvider.prototype.updateNotaNumeroOrden = function (notaId, notaNumeroOrden) {
+    TodoServiceProvider.prototype.updateNotaNumeroOrden = function (notaId, notaNumeroOrden, usuarioId) {
         var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/updateNotaNumeroOrden';
-        url = url + '?notaId=' + notaId + '&notaNumeroOrden=' + notaNumeroOrden;
+        url = url + '?notaId=' + notaId + '&notaNumeroOrden=' + notaNumeroOrden + '&usuarioId=' + usuarioId.trim();
         return this.http.get(url);
     };
-    TodoServiceProvider.prototype.updateNotaTexto = function (notaId, notaTexto) {
+    TodoServiceProvider.prototype.updateNotaTexto = function (notaId, notaTexto, usuarioId) {
         var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/updateNotaTexto';
-        url = url + '?notaId=' + notaId + '&notaTexto=' + notaTexto;
+        url = url + '?notaId=' + notaId + '&notaTexto=' + notaTexto.trim() + '&usuarioId=' + usuarioId.trim();
         return this.http.get(url);
     };
-    TodoServiceProvider.prototype.deleteNota = function (notaId) {
+    TodoServiceProvider.prototype.deleteNota = function (notaId, usuarioId) {
         var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/deleteNota';
-        url = url + '?notaId=' + notaId;
+        url = url + '?notaId=' + notaId + '&usuarioId=' + usuarioId.trim();
+        return this.http.get(url);
+    };
+    TodoServiceProvider.prototype.getUsuario = function (usuarioEmail, usuarioPassword) {
+        var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/getUsuario';
+        url = url + '?usuarioEmail=' + usuarioEmail.trim() + '&usuarioPassword=' + usuarioPassword.trim();
         return this.http.get(url);
     };
     TodoServiceProvider = __decorate([
