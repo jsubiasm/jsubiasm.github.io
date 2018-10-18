@@ -1,15 +1,15 @@
 webpackJsonp([1],{
 
-/***/ 106:
+/***/ 109:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__detail_detail__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__detail_detail__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_todo_service_todo_service__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_nota__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_nota__ = __webpack_require__(312);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -117,7 +117,7 @@ var HomePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 109:
+/***/ 110:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -223,7 +223,7 @@ var DetailPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 121:
+/***/ 122:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -236,11 +236,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 121;
+webpackEmptyAsyncContext.id = 122;
 
 /***/ }),
 
-/***/ 163:
+/***/ 164:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -260,19 +260,19 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 163;
+webpackAsyncContext.id = 164;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 208:
+/***/ 211:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AboutPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_crypto_js__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_crypto_js__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_crypto_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_crypto_js__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -339,9 +339,9 @@ var AboutPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_todo_service_todo_service__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_crypto_js__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_crypto_js__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_crypto_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_crypto_js__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -456,13 +456,13 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_about_about__ = __webpack_require__(208);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_detail_detail__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(311);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_about_about__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_detail_detail__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_login_login__ = __webpack_require__(212);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_todo_service_todo_service__ = __webpack_require__(51);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -527,17 +527,17 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 288:
+/***/ 311:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_about_about__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_about_about__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(212);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -611,7 +611,7 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 289:
+/***/ 312:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -634,8 +634,10 @@ var Nota = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoServiceProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_crypto_js__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_crypto_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_crypto_js__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -647,6 +649,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 /*
   Generated class for the TodoServiceProvider provider.
 
@@ -656,10 +659,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var TodoServiceProvider = /** @class */ (function () {
     function TodoServiceProvider(http) {
         this.http = http;
+        this.apiKeySecret = 'Api-Key-Secret-Value';
     }
+    TodoServiceProvider.prototype.getApiKey = function (usuarioId) {
+        var actualDate = new Date();
+        var apiKeyContent = ''
+            + usuarioId
+            + actualDate.getUTCFullYear()
+            + (actualDate.getUTCMonth() + 1)
+            + actualDate.getUTCDate()
+            + actualDate.getUTCHours();
+        console.log(apiKeyContent);
+        var hmacSha256 = __WEBPACK_IMPORTED_MODULE_2_crypto_js__["HmacSHA256"](apiKeyContent, this.apiKeySecret);
+        var hmacSha256Hex = __WEBPACK_IMPORTED_MODULE_2_crypto_js__["enc"].Hex.stringify(hmacSha256);
+        return hmacSha256Hex;
+    };
     TodoServiceProvider.prototype.getNotas = function (usuarioId) {
         var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/getNotas';
-        url = url + '?usuarioId=' + usuarioId.trim();
+        url = url + '?apiKey=' + this.getApiKey(usuarioId);
+        url = url + '&usuarioId=' + usuarioId.trim();
+        console.log(url);
         return this.http.get(url);
     };
     TodoServiceProvider.prototype.getUltimaNota = function (usuarioId) {
@@ -669,24 +688,38 @@ var TodoServiceProvider = /** @class */ (function () {
     };
     TodoServiceProvider.prototype.insertNota = function (notaNumeroOrden, notaTexto, usuarioId) {
         var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/insertNota';
-        return this.http.post(url, { 'notaNumeroOrden': notaNumeroOrden, 'notaTexto': notaTexto.trim(), 'usuarioId': usuarioId.trim() });
+        return this.http.post(url, {
+            'notaNumeroOrden': notaNumeroOrden,
+            'notaTexto': notaTexto.trim(),
+            'usuarioId': usuarioId.trim()
+        });
     };
     TodoServiceProvider.prototype.updateNotaNumeroOrden = function (notaId, notaNumeroOrden, usuarioId) {
         var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/updateNotaNumeroOrden';
-        return this.http.post(url, { 'notaId': notaId, 'notaNumeroOrden': notaNumeroOrden, 'usuarioId': usuarioId.trim() });
+        return this.http.post(url, {
+            'notaId': notaId,
+            'notaNumeroOrden': notaNumeroOrden,
+            'usuarioId': usuarioId.trim()
+        });
     };
     TodoServiceProvider.prototype.updateNotaTexto = function (notaId, notaTexto, usuarioId) {
         var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/updateNotaTexto';
-        return this.http.post(url, { 'notaId': notaId, 'notaTexto': notaTexto.trim(), 'usuarioId': usuarioId.trim() });
+        return this.http.post(url, {
+            'notaId': notaId,
+            'notaTexto': notaTexto.trim(),
+            'usuarioId': usuarioId.trim()
+        });
     };
     TodoServiceProvider.prototype.deleteNota = function (notaId, usuarioId) {
         var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/deleteNota';
-        url = url + '?notaId=' + notaId + '&usuarioId=' + usuarioId.trim();
+        url = url + '?notaId=' + notaId;
+        url = url + '&usuarioId=' + usuarioId.trim();
         return this.http.get(url);
     };
     TodoServiceProvider.prototype.getUsuario = function (usuarioEmail, usuarioPassword) {
         var url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/todoappv2-zxque/service/TODOService/incoming_webhook/getUsuario';
-        url = url + '?usuarioEmail=' + usuarioEmail.trim() + '&usuarioPassword=' + usuarioPassword.trim();
+        url = url + '?usuarioEmail=' + usuarioEmail.trim();
+        url = url + '&usuarioPassword=' + usuarioPassword.trim();
         return this.http.get(url);
     };
     TodoServiceProvider = __decorate([
